@@ -1,0 +1,17 @@
+{
+   "name":"net.battlehub.packageutils",
+   "version":"0.0.1",
+   "displayName":"Package Utils",
+   "description":"Package Utils",
+   "unity":"2021.3",
+   "dependencies":{
+   },
+   "keywords":[
+      "battlehub package utils"
+   ],
+   "author":{
+      "name":"Battlehub",
+      "email":"Battlehub@outlook.com",
+      "url":"https://www.battlehub.net"
+   }
+}
