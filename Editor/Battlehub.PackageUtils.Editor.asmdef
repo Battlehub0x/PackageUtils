@@ -1,7 +1,9 @@
 {
     "name": "Battlehub.PackageUtils.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:b4b9183feba7863438aefe3866ae5426"
+    ],
     "includePlatforms": [
         "Editor"
     ],
