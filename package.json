@@ -1,6 +1,6 @@
 {
    "name":"net.battlehub.packageutils",
-   "version":"1.0.1",
+   "version":"1.0.3",
    "displayName":"Package Utils",
    "description":"Package Utils",
    "unity":"2021.3",
