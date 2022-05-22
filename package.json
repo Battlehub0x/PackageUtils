@@ -1,10 +1,11 @@
 {
    "name":"net.battlehub.packageutils",
-   "version":"1.0.4",
+   "version":"1.0.5",
    "displayName":"Package Utils",
    "description":"Package Utils",
    "unity":"2021.3",
    "dependencies":{
+	"net.battlehub.simplejson" : "1.0.2"
    },
    "keywords":[
       "battlehub package utils"
