@@ -1,14 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <ui:VisualElement name="panel" style="flex-grow: 1; flex-direction: column;">
-        <ui:VisualElement name="top" style="flex-grow: 1; flex-basis: 1px; border-bottom-width: 1px;">
+        <ui:TextField picking-mode="Ignore" label="Search" text="All" name="search-input" />
+        <ui:VisualElement name="top" style="flex-grow: 1; border-bottom-width: 1px; flex-basis: 0;">
             <ui:ListView focusable="true" name="packages-listview" />
         </ui:VisualElement>
-        <ui:VisualElement name="bottom" style="flex-grow: 1; flex-basis: 1px;">
+        <ui:VisualElement name="bottom" style="flex-grow: 0;">
             <ui:ScrollView name="settings-panel">
                 <ui:Label text="Settings" display-tooltip-when-elided="true" name="settings-header" style="-unity-font-style: bold;" />
-                <ui:TextField picking-mode="Ignore" label="Package" name="package-filter" />
-                <ui:TextField picking-mode="Ignore" label="Local Path" name="local-path" />
-                <ui:Toggle label="Development Mode" name="dev-mode" />
+                <ui:TextField picking-mode="Ignore" label="Production Path" name="prod-path-input" />
+                <ui:TextField picking-mode="Ignore" label="DevelopmentPath" name="dev-path-input" />
+                <ui:Toggle label="Development Mode" name="dev-mode-toggle" />
             </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>
