@@ -6,8 +6,6 @@
 
 This package makes it easy to switch between the production version of packages and the local development version, find and edit package.json.
 
-Click **Tools->Battlehub->Package Utils** on the main menu to get started.
-
 ## Installation
 
 The easiest way to install is to download and open the [Installer Package](https://package-installer.glitch.me/v1/installer/OpenUPM/net.battlehub.packageutils?registry=https%3A%2F%2Fpackage.openupm.com&scope=net.battlehub)
@@ -36,4 +34,12 @@ Alternatively, merge the snippet to [Packages/manifest.json](https://docs.unity3
 ```
 
 ## Usage 
+
+- To get started, click **Tools->Battlehub->Package Utils** on the main menu.
+
+- Select a package from the list. 
+
+- Enter the local path to the file with the development package version.
+
+- Click the button to switch the development mode.
 
