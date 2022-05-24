@@ -12,7 +12,7 @@ namespace Battlehub.PackageUtils
 {
     public class PackageUtilsWindow : EditorWindow
     {
-        private string[] m_ignorePackages = new[] { "com.unity", "net.battlehub.packageutils" };
+        private string[] m_ignorePackages = new[] { "net.battlehub.packageutils" };
 
         private JSONNode m_prodManifest;
         private JSONNode m_devManifest;
