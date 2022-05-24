@@ -14,7 +14,6 @@ namespace Battlehub.PackageUtils
     {
         private string[] m_ignorePackages = new[] { "com.unity", "net.battlehub.packageutils" };
 
-        private JSONNode m_manifest;
         private JSONNode m_prodManifest;
         private JSONNode m_devManifest;
 
@@ -61,8 +60,8 @@ namespace Battlehub.PackageUtils
             m_settingsPanel = rootVisualElement.Q<VisualElement>("settings-panel");
             m_settingsPanel.SetEnabled(false);
 
-            m_manifest = ReadManifest("manifest");
-            m_packages = ReadPackagesFromManifest(m_manifest);
+            JSONNode manifest = ReadManifest("manifest");
+            m_packages = ReadPackagesFromManifest(manifest);
             m_devManifest = ReadManifest("manifest-dev");
             m_devPackages = ReadPackagesFromManifest(m_devManifest);
             m_prodManifest = ReadManifest("manifest-prod");
@@ -154,7 +153,9 @@ namespace Battlehub.PackageUtils
                 if (!m_devToggle.value)
                 {
                     m_packages[selectedPackage.Key] = evt.newValue;
-                    WritePackagesToManifest("manifest", m_manifest, m_packages);
+
+                    JSONNode manifest = ReadManifest("manifest");
+                    WritePackagesToManifest("manifest", manifest, m_packages);
                     m_requiresUpdate = true;
                 }
             }
@@ -180,7 +181,8 @@ namespace Battlehub.PackageUtils
                 if (m_devToggle.value)
                 {
                     m_packages[selectedPackage.Key] = evt.newValue;
-                    WritePackagesToManifest("manifest", m_manifest, m_packages);
+                    JSONNode manifest = ReadManifest("manifest");
+                    WritePackagesToManifest("manifest", manifest, m_packages);
                     m_requiresUpdate = true;
                 }
             }
@@ -205,7 +207,8 @@ namespace Battlehub.PackageUtils
                     if(m_devPackages.TryGetValue(selectedPackage.Key, out string path))
                     {
                         m_packages[selectedPackage.Key] = path;
-                        WritePackagesToManifest("manifest", m_manifest, m_packages);
+                        JSONNode manifest = ReadManifest("manifest");
+                        WritePackagesToManifest("manifest", manifest, m_packages);
                         m_requiresUpdate = false;
                         Client.Resolve();
                     }
@@ -215,7 +218,8 @@ namespace Battlehub.PackageUtils
                     if(m_prodPackages.TryGetValue(selectedPackage.Key, out string path))
                     {
                         m_packages[selectedPackage.Key] = path;
-                        WritePackagesToManifest("manifest", m_manifest, m_packages);
+                        JSONNode manifest = ReadManifest("manifest");
+                        WritePackagesToManifest("manifest", manifest, m_packages);
                         m_requiresUpdate = false;
                         Client.Resolve();
                     }
