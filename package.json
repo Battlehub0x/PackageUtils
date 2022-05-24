@@ -1,8 +1,8 @@
 {
   "name": "net.battlehub.packageutils",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "displayName": "Package Utils",
-  "description": "Package Utils",
+  "description": "Package Utils\n\nAllows you to easily switch between production and local development version of packages, \nfind and edit package.json\n\nClick Tools->Battlehub->Package Utils",
   "unity": "2021.3",
   "dependencies": {
     "net.battlehub.simplejson": "1.0.2"

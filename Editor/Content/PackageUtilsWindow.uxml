@@ -1,15 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <ui:VisualElement name="panel" style="flex-grow: 1; flex-direction: column;">
-        <ui:TextField picking-mode="Ignore" label="Search" text="All" name="search-input" />
-        <ui:VisualElement name="top" style="flex-grow: 1; border-bottom-width: 1px; flex-basis: 0;">
+    <Style src="project://database/Packages/net.battlehub.packageutils/Editor/Content/PackageUtilsWindow.uss?fileID=7433441132597879392&amp;guid=c677d9e5e4c777f4c8e0a9d8984610e4&amp;type=3#PackageUtilsWindow" />
+    <ui:VisualElement name="panel">
+        <ui:TextField picking-mode="Ignore" label="Search" name="search-input" readonly="false" />
+        <ui:VisualElement name="top">
             <ui:ListView focusable="true" name="packages-listview" />
         </ui:VisualElement>
-        <ui:VisualElement name="bottom" style="flex-grow: 0;">
+        <ui:VisualElement name="bottom">
             <ui:ScrollView name="settings-panel">
-                <ui:Label text="Settings" display-tooltip-when-elided="true" name="settings-header" style="-unity-font-style: bold;" />
+                <ui:Label text="Settings" display-tooltip-when-elided="true" name="settings-header" />
                 <ui:TextField picking-mode="Ignore" label="Production Path" name="prod-path-input" />
                 <ui:TextField picking-mode="Ignore" label="DevelopmentPath" name="dev-path-input" />
                 <ui:Toggle label="Development Mode" name="dev-mode-toggle" />
+                <ui:Button label="Select package.json" name="select-package-json-button" text="Select package.json" />
             </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>

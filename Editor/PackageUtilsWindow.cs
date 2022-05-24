@@ -24,12 +24,13 @@ namespace Battlehub.PackageUtils
         private bool m_requiresUpdate;
 
         private TextField m_searchTextField;
+        private ListView m_packagesListView;
+        private VisualElement m_settingsPanel;
         private TextField m_prodPathTextField;
         private TextField m_devPathTextField;
         private Toggle m_devToggle;
-        private ListView m_packagesListView;
-        private VisualElement m_settingsPanel;
-
+        private Button m_selectPackagesJsonButton;
+        
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
@@ -53,6 +54,9 @@ namespace Battlehub.PackageUtils
 
             m_devToggle = rootVisualElement.Q<Toggle>("dev-mode-toggle");
             m_devToggle.RegisterValueChangedCallback(OnDevModeChanged);
+
+            m_selectPackagesJsonButton = rootVisualElement.Q<Button>("select-package-json-button");
+            m_selectPackagesJsonButton.RegisterCallback<ClickEvent>(OnSelectPackageJsonClick);
 
             m_settingsPanel = rootVisualElement.Q<VisualElement>("settings-panel");
             m_settingsPanel.SetEnabled(false);
@@ -89,6 +93,11 @@ namespace Battlehub.PackageUtils
             m_packagesListView.Rebuild();
             m_packagesListView.selectedIndex = -1;
         }
+        
+        private void OnSearchTextChanged(ChangeEvent<string> evt)
+        {
+            PopulatePackagesList();
+        }
 
         private List<KeyValuePair<string, string>> GetPackagesList()
         {
@@ -97,9 +106,41 @@ namespace Battlehub.PackageUtils
                 .Where(kvp => kvp.Key.ToLower().Contains(m_searchTextField.value.ToLower())).ToList();
         }
 
-        private void OnSearchTextChanged(ChangeEvent<string> evt)
+        private void OnTreePackagesListItemChosen(IEnumerable<object> chosenItems)
         {
-            PopulatePackagesList();
+            object chosenItem = chosenItems.FirstOrDefault();
+            if (chosenItem == null)
+            {
+                m_settingsPanel.SetEnabled(false);
+                m_prodPathTextField.SetValueWithoutNotify(string.Empty);
+                m_devPathTextField.SetValueWithoutNotify(string.Empty);
+                m_devToggle.SetValueWithoutNotify(false);
+                return;
+            }
+
+            var selectedPackage = (KeyValuePair<string, string>)chosenItem;
+            m_settingsPanel.SetEnabled(true);
+
+            if (m_prodPackages.TryGetValue(selectedPackage.Key, out string prodPath))
+            {
+                m_prodPathTextField.SetValueWithoutNotify(prodPath);
+            }
+            else
+            {
+                m_prodPathTextField.SetValueWithoutNotify(selectedPackage.Value);
+            }
+
+            if (m_devPackages.TryGetValue(selectedPackage.Key, out string devPath))
+            {
+                m_devPathTextField.SetValueWithoutNotify(devPath);
+            }
+            else
+            {
+                devPath = string.Empty;
+                m_devPathTextField.SetValueWithoutNotify(devPath);
+            }
+
+            m_devToggle.SetValueWithoutNotify(selectedPackage.Value.ToLower() == devPath.ToLower() && devPath.ToLower() != prodPath.ToLower());
         }
 
         private void OnProdPathTextChanged(ChangeEvent<string> evt)
@@ -182,41 +223,11 @@ namespace Battlehub.PackageUtils
             }
         }
 
-        private void OnTreePackagesListItemChosen(IEnumerable<object> chosenItems)
+        private void OnSelectPackageJsonClick(ClickEvent evt)
         {
-            object chosenItem = chosenItems.FirstOrDefault();
-            if(chosenItem == null)
-            {
-                m_settingsPanel.SetEnabled(false);
-                m_prodPathTextField.SetValueWithoutNotify(string.Empty);
-                m_devPathTextField.SetValueWithoutNotify(string.Empty);
-                m_devToggle.SetValueWithoutNotify(false);
-                return;
-            }
-
-            var selectedPackage = (KeyValuePair<string, string>)chosenItem;
-            m_settingsPanel.SetEnabled(true);
-
-            if (m_prodPackages.TryGetValue(selectedPackage.Key, out string prodPath))
-            {
-                m_prodPathTextField.SetValueWithoutNotify(prodPath);
-            }
-            else
-            {
-                m_prodPathTextField.SetValueWithoutNotify(selectedPackage.Value);
-            }
-            
-            if(m_devPackages.TryGetValue(selectedPackage.Key, out string devPath))
-            {
-                m_devPathTextField.SetValueWithoutNotify(devPath);
-            }
-            else
-            {
-                devPath = string.Empty;
-                m_devPathTextField.SetValueWithoutNotify(devPath);   
-            }
-
-            m_devToggle.SetValueWithoutNotify(selectedPackage.Value.ToLower() == devPath.ToLower() && devPath.ToLower() != prodPath.ToLower());
+            var selectedPackage = (KeyValuePair<string, string>)m_packagesListView.selectedItem;
+            TextAsset packageJson = (TextAsset)AssetDatabase.LoadAssetAtPath($"Packages/{selectedPackage.Key}/package.json", typeof(TextAsset));
+            Selection.activeObject = packageJson;
         }
 
         private static string GetDataPath()
