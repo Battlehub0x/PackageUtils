@@ -25,12 +25,12 @@ Alternatively, merge the snippet to [Packages/manifest.json](https://docs.unity3
             "name": "package.openupm.com",
             "url": "https://package.openupm.com",
             "scopes": [
-                "net.battlehub.simplejson"
+                "net.battlehub.packageutils"
             ]
         }
     ],
     "dependencies": {
-        "net.battlehub.simplejson": "major.minor.patch"
+        "net.battlehub.packageutils": "major.minor.patch"
     }
 }
 ```
