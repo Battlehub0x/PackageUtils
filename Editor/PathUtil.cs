@@ -30,11 +30,11 @@ namespace Battlehub.PackageUtils
             {
                 if(value == null)
                 {
-                    EditorPrefs.DeleteKey("RTSL_Data_RootFolder");
+                    EditorPrefs.DeleteKey(EditorPrefsKey);
                 }
                 else
                 {
-                    EditorPrefs.SetString("RTSL_Data_RootFolder", value);
+                    EditorPrefs.SetString(EditorPrefsKey, value);
                 }
             }
         }
